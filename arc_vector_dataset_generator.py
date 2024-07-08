@@ -1,6 +1,7 @@
 import socket
 import struct
 import time
+import argparse
 
 
 def request_arc_data(sock):
@@ -11,8 +12,12 @@ def request_arc_data(sock):
 
 
 if __name__ == '__main__':
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('--server', default='110.110.1.11')
+    arg_parser.add_argument('--port', default=30031)
+    args = arg_parser.parse_args()
     clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    clientSocket.connect(('192.168.1.6', 30031))
+    clientSocket.connect((args.server, args.port))
     request_arc_data(clientSocket)
     buffer = b''
     timeout_counter = 0
